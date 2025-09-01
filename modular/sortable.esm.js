@@ -5,18 +5,13 @@
  * @license MIT
  */
 function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
     }
-    return target;
-  };
-  return _extends.apply(this, arguments);
+    return n;
+  }, _extends.apply(null, arguments);
 }
 
 var version = "1.15.6";
@@ -43,7 +38,7 @@ function on(el, event, fn) {
 function off(el, event, fn) {
   el.removeEventListener(event, fn, !IE11OrLess && captureMode);
 }
-function matches( /**HTMLElement*/el, /**String*/selector) {
+function matches(/**HTMLElement*/el, /**String*/selector) {
   if (!selector) return;
   selector[0] === '>' && (selector = selector.substring(1));
   if (el) {
@@ -64,7 +59,7 @@ function matches( /**HTMLElement*/el, /**String*/selector) {
 function getParentOrHost(el) {
   return el.host && el !== document && el.host.nodeType && el.host !== el ? el.host : el.parentNode;
 }
-function closest( /**HTMLElement*/el, /**String*/selector, /**HTMLElement*/ctx, includeCTX) {
+function closest(/**HTMLElement*/el, /**String*/selector, /**HTMLElement*/ctx, includeCTX) {
   if (el) {
     ctx = ctx || document;
     do {
@@ -1073,7 +1068,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
   _getDirection: function (evt, target) {
     return typeof this.options.direction === 'function' ? this.options.direction.call(this, evt, target, dragEl) : this.options.direction;
   },
-  _onTapStart: function ( /** Event|TouchEvent */evt) {
+  _onTapStart: function (/** Event|TouchEvent */evt) {
     if (!evt.cancelable) return;
     let _this = this,
       el = this.el,
@@ -1163,7 +1158,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
     // Prepare `dragstart`
     this._prepareDragStart(evt, touch, target);
   },
-  _prepareDragStart: function ( /** Event */evt, /** Touch */touch, /** HTMLElement */target) {
+  _prepareDragStart: function (/** Event */evt, /** Touch */touch, /** HTMLElement */target) {
     let _this = this,
       el = _this.el,
       options = _this.options,
@@ -1269,7 +1264,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
       }
     }
   },
-  _delayedDragTouchMoveHandler: function ( /** TouchEvent|PointerEvent **/e) {
+  _delayedDragTouchMoveHandler: function (/** TouchEvent|PointerEvent **/e) {
     let touch = e.touches ? e.touches[0] : e;
     if (Math.max(Math.abs(touch.clientX - this._lastX), Math.abs(touch.clientY - this._lastY)) >= Math.floor(this.options.touchStartThreshold / (this.nativeDraggable && window.devicePixelRatio || 1))) {
       this._disableDelayedDrag();
@@ -1291,7 +1286,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
     off(ownerDocument, 'touchmove', this._delayedDragTouchMoveHandler);
     off(ownerDocument, 'pointermove', this._delayedDragTouchMoveHandler);
   },
-  _triggerDragStart: function ( /** Event */evt, /** Touch */touch) {
+  _triggerDragStart: function (/** Event */evt, /** Touch */touch) {
     touch = touch || evt.pointerType == 'touch' && evt;
     if (!this.nativeDraggable || touch) {
       if (this.options.supportPointer) {
@@ -1376,7 +1371,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
       _unhideGhostForTarget();
     }
   },
-  _onTouchMove: function ( /**TouchEvent*/evt) {
+  _onTouchMove: function (/**TouchEvent*/evt) {
     if (tapEvt) {
       let options = this.options,
         fallbackTolerance = options.fallbackTolerance,
@@ -1469,7 +1464,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
       css(ghostEl, 'transform-origin', tapDistanceLeft / parseInt(ghostEl.style.width) * 100 + '% ' + tapDistanceTop / parseInt(ghostEl.style.height) * 100 + '%');
     }
   },
-  _onDragStart: function ( /**Event*/evt, /**boolean*/fallback) {
+  _onDragStart: function (/**Event*/evt, /**boolean*/fallback) {
     let _this = this;
     let dataTransfer = evt.dataTransfer;
     let options = _this.options;
@@ -1534,7 +1529,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
     }
   },
   // Returns true - if no further action is needed (either inserted or another condition)
-  _onDragOver: function ( /**Event*/evt) {
+  _onDragOver: function (/**Event*/evt) {
     let el = this.el,
       target = evt.target,
       dragRect,
@@ -1805,7 +1800,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
     off(ownerDocument, 'touchcancel', this._onDrop);
     off(document, 'selectstart', this);
   },
-  _onDrop: function ( /**Event*/evt) {
+  _onDrop: function (/**Event*/evt) {
     let el = this.el,
       options = this.options;
 
@@ -1961,7 +1956,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
     });
     savedInputChecked.length = lastDx = lastDy = 0;
   },
-  handleEvent: function ( /**Event*/evt) {
+  handleEvent: function (/**Event*/evt) {
     switch (evt.type) {
       case 'drop':
       case 'dragend':
@@ -2117,7 +2112,7 @@ Sortable.prototype = /** @lends Sortable.prototype */{
     }
   }
 };
-function _globalDragOver( /**Event*/evt) {
+function _globalDragOver(/**Event*/evt) {
   if (evt.dataTransfer) {
     evt.dataTransfer.dropEffect = 'move';
   }
